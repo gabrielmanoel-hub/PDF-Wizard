@@ -401,7 +401,9 @@
     </section>
 
     <footer class="text-center text-sm text-gray-500 py-8">
-      © <span id="year"></span> PDF Toolkit – Feito para estudo.
+      © <span id="year"></span> PDF Wizard – Feito para estudo.
+      <br>
+        <a href="Política-de-Privacidade.html" class="text-indigo-600 underline hover:text-indigo-800">Política de Privacidade</a>
     </footer>
   </main>
 
@@ -411,7 +413,7 @@
     </svg>
     <span id="toast-message">Operação concluída com sucesso!</span>
   </div>
-
+  <script src="./js/block.js" defer></script>
   <script>
     // libs
     const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib;
@@ -751,38 +753,108 @@ const MAX_SIZE = 20 * 1024 * 1024; // 20MB
 $('#tab-merge').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Unir PDFs</h2>
   <input type="file" id="mergeFiles" multiple accept="application/pdf" class="mb-4" />
+  <div id="mergePreviewGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4"></div>
   <button id="btnMerge" class="btn-primary">Unir e baixar</button>
+  <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+    <div id="mergeProgressBar" class="bg-indigo-500 h-3 rounded-full transition-all duration-300" style="width:0%"></div>
+  </div>
   <div id="mergeStatus" class="text-sm text-gray-500 mt-2"></div>
 `;
 
-$('#mergeFiles').addEventListener('change', (e) => {
-  for (const file of e.target.files) {
+let mergeState = { files: [], pdfs: [], previews: [] };
+
+$('#mergeFiles').addEventListener('change', async (e) => {
+  const files = Array.from(e.target.files);
+  mergeState.files = [];
+  mergeState.pdfs = [];
+  mergeState.previews = [];
+  $('#mergePreviewGrid').innerHTML = '';
+  for (const file of files) {
     if (file.size > MAX_SIZE) {
       setStatus('merge', 'Arquivo muito grande (máx. 20MB): ' + file.name);
       showToast('Arquivo muito grande: ' + file.name, 'error');
-      e.target.value = '';
-      return;
+      continue;
     }
+    mergeState.files.push(file);
+    // Carregar para pdf-lib
+    const bytes = await readAsArrayBuffer(file);
+    const pdfDoc = await PDFDocument.load(bytes);
+    mergeState.pdfs.push(pdfDoc);
+    // Carregar para preview
+    const previewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
+    mergeState.previews.push(previewPdf);
   }
+  await renderMergePreviewGrid();
+  setStatus('merge', `${mergeState.files.length} arquivo(s) prontos para unir. Arraste para reordenar.`);
+  showToast('Arquivos carregados!', 'success');
+  $('#mergeProgressBar').style.width = '0%';
 });
 
+async function renderMergePreviewGrid() {
+  const grid = $('#mergePreviewGrid');
+  grid.innerHTML = '';
+  for (let i = 0; i < mergeState.files.length; i++) {
+    const file = mergeState.files[i];
+    const previewPdf = mergeState.previews[i];
+    // Renderizar primeira página do PDF
+    const page = await previewPdf.getPage(1);
+    const vp = page.getViewport({scale: 0.25});
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.floor(vp.width);
+    canvas.height = Math.floor(vp.height);
+    await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
+    const div = document.createElement('div');
+    div.className = 'thumb p-2 flex flex-col items-center';
+    div.innerHTML = `
+      <div class="mb-2 text-sm">${file.name}</div>
+      <div class="mb-2 text-xs text-gray-500">Página 1</div>
+    `;
+    div.appendChild(canvas);
+    grid.appendChild(div);
+  }
+  // Permitir arrastar para reordenar
+  Sortable.create(grid, {
+    animation: 150,
+    onEnd: function (evt) {
+      const oldFiles = mergeState.files.slice();
+      const movedFile = oldFiles.splice(evt.oldIndex, 1)[0];
+      oldFiles.splice(evt.newIndex, 0, movedFile);
+      mergeState.files = oldFiles;
+      // Reordenar pdfs e previews também
+      const oldPdfs = mergeState.pdfs.slice();
+      const movedPdf = oldPdfs.splice(evt.oldIndex, 1)[0];
+      oldPdfs.splice(evt.newIndex, 0, movedPdf);
+      mergeState.pdfs = oldPdfs;
+      const oldPreviews = mergeState.previews.slice();
+      const movedPreview = oldPreviews.splice(evt.oldIndex, 1)[0];
+      oldPreviews.splice(evt.newIndex, 0, movedPreview);
+      mergeState.previews = oldPreviews;
+      renderMergePreviewGrid();
+    }
+  });
+}
+
 $('#btnMerge').addEventListener('click', async () => {
-  const files = $('#mergeFiles').files;
-  if (!files.length) {
+  if (!mergeState.files.length) {
     setStatus('merge', 'Selecione arquivos PDF.');
     showToast('Selecione arquivos PDF.', 'error');
     return;
   }
   $('#btnMerge').disabled = true;
+  $('#mergeProgressBar').style.width = '0%';
   withSpinner('merge', 'Unindo PDFs...');
   try {
     const mergedPdf = await PDFDocument.create();
-    for (const file of files) {
-      const bytes = await readAsArrayBuffer(file);
-      const pdf = await PDFDocument.load(bytes);
+    setStatus('merge', 'Processando arquivos...');
+    for (let i = 0; i < mergeState.pdfs.length; i++) {
+      setStatus('merge', `Adicionando "${mergeState.files[i].name}" (${i+1}/${mergeState.pdfs.length})...`);
+      $('#mergeProgressBar').style.width = `${Math.round((i/mergeState.pdfs.length)*100)}%`;
+      const pdf = mergeState.pdfs[i];
       const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
       pages.forEach(p => mergedPdf.addPage(p));
     }
+    $('#mergeProgressBar').style.width = '100%';
+    setStatus('merge', 'Salvando PDF final...');
     const outBytes = await mergedPdf.save();
     downloadBlob(new Blob([outBytes], {type: 'application/pdf'}), 'unido.pdf');
     setStatus('merge', 'PDFs unidos com sucesso!');
@@ -799,8 +871,6 @@ $('#btnMerge').addEventListener('click', async () => {
 //------------------------------------------------------------
 // ...adicione antes do comentário das outras ferramentas...
 
-// ...substitua o bloco ROTATE pelo abaixo...
-
 $('#tab-rotate').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Girar / Reordenar páginas</h2>
   <input type="file" id="rotateFile" accept="application/pdf" class="mb-4" />
@@ -813,9 +883,14 @@ $('#tab-rotate').innerHTML = `
   </div>
   <button id="btnExportRotate" class="btn-primary">Exportar PDF</button>
   <div id="rrStatus" class="text-sm text-gray-500 mt-2"></div>
+  <div class="mb-4">
+    <h3 class="text-sm font-medium text-gray-700 mb-2">Pré-visualização das páginas</h3>
+    <div id="rotatePreviewGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
+  </div>
 `;
 
 let rrState = { doc: null, order: [], rotations: [] };
+let rotatePreviewPdf = null;
 
 $('#rotateFile').addEventListener('change', async (e) => {
   const f = e.target.files[0];
@@ -832,7 +907,9 @@ $('#rotateFile').addEventListener('change', async (e) => {
     rrState.doc = await PDFDocument.load(bytes);
     rrState.order = rrState.doc.getPageIndices();
     rrState.rotations = Array(rrState.order.length).fill(0);
+    rotatePreviewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
     await renderRotateGrid();
+    await renderRotatePreview();
     setStatus('rr', `PDF carregado — ${rrState.order.length} página(s).`);
     showToast(`PDF carregado com ${rrState.order.length} páginas`, 'success');
   } catch (err) {
@@ -867,6 +944,7 @@ async function renderRotateGrid() {
       oldRot.splice(evt.newIndex, 0, movedRot);
       rrState.rotations = oldRot;
       renderRotateGrid();
+      renderRotatePreview(); // Atualiza preview ao reordenar
     }
   });
 }
@@ -897,6 +975,7 @@ function rotateSelected(deg) {
   }
   rrState.rotations[idx] = (rrState.rotations[idx] + deg) % 360;
   $(`#rot${idx}`).textContent = `${rrState.rotations[idx]}°`;
+  renderRotatePreview(); // Atualiza preview ao girar
 }
 
 $('#btnRotate90').addEventListener('click', () => rotateSelected(90));
@@ -907,6 +986,7 @@ $('#btnResetRotation').addEventListener('click', () => {
   if (idx === null) return;
   rrState.rotations[idx] = 0;
   $(`#rot${idx}`).textContent = '0°';
+  renderRotatePreview(); // Atualiza preview ao resetar
 });
 
 $('#btnExportRotate').addEventListener('click', async () => {
@@ -936,10 +1016,37 @@ $('#btnExportRotate').addEventListener('click', async () => {
   }
 });
 
+// Pré-visualização das páginas rotacionadas
+async function renderRotatePreview() {
+  const grid = $('#rotatePreviewGrid');
+  grid.innerHTML = '';
+  if (!rotatePreviewPdf || !rrState.order.length) return;
+  for (let i = 0; i < rrState.order.length; i++) {
+    const pageNum = rrState.order[i] + 1;
+    const rotation = rrState.rotations[i];
+    const page = await rotatePreviewPdf.getPage(pageNum);
+    const vp = page.getViewport({scale: 0.25, rotation: rotation});
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.floor(vp.width);
+    canvas.height = Math.floor(vp.height);
+    const ctx = canvas.getContext('2d');
+    ctx.save();
+    // O pdf.js já aplica a rotação via viewport, não precisa girar manualmente
+    ctx.restore();
+    await page.render({canvasContext: ctx, viewport: vp}).promise;
+    const div = document.createElement('div');
+    div.className = 'thumb p-2 flex flex-col items-center';
+    div.innerHTML = `<div class="mb-2 text-sm">Página ${pageNum} (${rotation}°)</div>`;
+    div.appendChild(canvas);
+    grid.appendChild(div);
+  }
+}
+
+
+
+
 // Anotar PDF (Adicionar texto simples)
 //-----------------------------------------
-
-// ...substitua o bloco ANNOTATE pelo abaixo...
 
 $('#tab-annotate').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Anotar PDF</h2>
@@ -962,9 +1069,14 @@ $('#tab-annotate').innerHTML = `
   </div>
   <button id="btnAnnotate" class="btn-primary">Adicionar texto e baixar</button>
   <div id="annStatus" class="text-sm text-gray-500 mt-2"></div>
+  <div class="mb-4">
+    <h3 class="text-sm font-medium text-gray-700 mb-2">Pré-visualização</h3>
+    <canvas id="annotatePreview" style="border:1px solid #e5e7eb; border-radius:8px; background:#fff; max-width:100%;"></canvas>
+  </div>
 `;
 
 let annState = { doc: null, numPages: 0 };
+let previewPdf = null;
 
 $('#annotateFile').addEventListener('change', async (e) => {
   const f = e.target.files[0];
@@ -983,6 +1095,10 @@ $('#annotateFile').addEventListener('change', async (e) => {
     setStatus('ann', `PDF carregado — ${annState.numPages} página(s).`);
     showToast(`PDF carregado com ${annState.numPages} páginas`, 'success');
     $('#annotatePage').max = annState.numPages;
+
+    // Carregar para preview
+    previewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
+    renderAnnotatePreview();
   } catch (err) {
     setStatus('ann','Erro ao abrir PDF: ' + (err.message || err));
     showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
@@ -1048,6 +1164,40 @@ $('#btnAnnotate').addEventListener('click', async () => {
     $('#btnAnnotate').disabled = false;
   }
 });
+
+function renderAnnotatePreview() {
+  if (!previewPdf) return;
+  const pageNum = parseInt($('#annotatePage').value, 10) || 1;
+  previewPdf.getPage(pageNum).then(page => {
+    const vp = page.getViewport({scale: 1});
+    const previewCanvas = $('#annotatePreview');
+    previewCanvas.width = vp.width;
+    previewCanvas.height = vp.height;
+    const ctx = previewCanvas.getContext('2d');
+    ctx.clearRect(0, 0, vp.width, vp.height);
+    page.render({canvasContext: ctx, viewport: vp}).promise.then(() => {
+      // Desenhar texto sobre o canvas
+      const text = $('#annotateText').value;
+      const x = parseInt($('#annotateX').value, 10) || 0;
+      const y = parseInt($('#annotateY').value, 10) || 0;
+      const color = $('#annotateColor').value || '#1e40af';
+      ctx.font = 'bold 18px Inter, Arial, sans-serif';
+      ctx.fillStyle = color;
+      ctx.fillText(text, x, vp.height - y); // Y invertido para ficar igual ao PDF-lib
+    });
+  });
+}
+
+// Atualize preview ao mudar campos
+['annotateText','annotatePage','annotateColor','annotateX','annotateY'].forEach(id => {
+  $(`#${id}`).addEventListener('input', renderAnnotatePreview);
+});
+
+
+
+
+
+
 // Compactar PDF
 // ------------------------------------------------------
 // ...substitua o bloco COMPRESS pelo abaixo...
@@ -1108,28 +1258,6 @@ $('#btnCompress').addEventListener('click', async () => {
     $('#btnCompress').disabled = false;
   }
 });
-
-
-// Bloquear o clique direito
-//-------------------------------
-// ...adicione dentro da tag <script>...
-document.addEventListener('contextmenu', e => e.preventDefault());
-
-//Bloquear teclas comuns (F12, Ctrl+Shift+I, Ctrl+U)
-//--------------------------------------------------
-// ...adicione dentro da tag <script>...
-document.addEventListener('keydown', function(e) {
-  if (
-    e.key === 'F12' ||
-    (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
-    (e.ctrlKey && e.key.toLowerCase() === 'u')
-  ) {
-    e.preventDefault();
-  }
-});
-
-
-
   </script>
 </body>
 </html>
