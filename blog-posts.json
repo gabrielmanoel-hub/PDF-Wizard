@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Como Extrair Páginas Específicas de um PDF em Segundos",
+    "date": "2025-08-29",
+    "content": "![Extração de PDF](https://raw.githubusercontent.com/github/explore/main/topics/pdf/pdf.png)\n\nPrecisa extrair apenas algumas páginas de um documento PDF grande? Com o PDF Wizard, é mais fácil do que você imagina!\n\n## 📝 Passo a passo:\n\n1. **Acesse** a ferramenta de extração no [PDF Wizard](https://pdfwizard.vercel.app)\n2. **Faça upload** do seu arquivo PDF\n3. **Selecione** as páginas que deseja extrair:\n   - Clique nas miniaturas\n   - Ou digite intervalos (ex: 1-3,5,8)\n4. **Clique em \"Extrair\"** e baixe seu novo PDF\n\n## 💡 Dica profissional:\nUse a visualização em miniatura para selecionar com precisão as páginas certas antes de extrair.\n\nExperimente agora mesmo e simplifique seu fluxo de trabalho!",
+    "categories": ["Tutoriais", "Dicas"]
+  },
+  {
+    "title": "Conheça o PDF Wizard: Sua Nova Ferramenta Mágica para PDFs",
+    "date": "2025-08-28",
+    "content": "![Logo PDF Wizard](https://raw.githubusercontent.com/github/explore/main/topics/pdf/pdf.png)\n\nÉ com grande prazer que apresentamos o **PDF Wizard** - uma suite completa de ferramentas para PDF que funciona diretamente no seu navegador!\n\n## ✨ Destaques:\n- Processamento 100% local (seus arquivos nunca saem do seu computador)\n- Interface intuitiva e fácil de usar\n- Ferramentas completas: unir, dividir, extrair, girar e muito mais\n- Totalmente gratuito, sem limites irritantes\n\n## 🚀 Como usar:\n1. Acesse [nosso site](https://pdfwizard.vercel.app)\n2. Escolha a ferramenta desejada\n3. Faça upload do seu PDF\n4. Processe e baixe - é simples assim!\n\nExperimente agora e descubra como é fácil dominar seus PDFs com magia!",
+    "categories": ["Novidades", "Lançamento"]
+  },
+  {
+  "title": "Como Desenvolvemos o PDF Wizard: Tecnologia por Trás da Mágica",
+  "date": "2025-09-05",
+  "content": "![Tecnologia](https://raw.githubusercontent.com/github/explore/main/topics/pdf/pdf.png)\n\nVocê já se perguntou como o PDF Wizard processa arquivos localmente sem enviar dados para servidores? Hoje vamos revelar a tecnologia por trás da mágica!\n\n## 🛠️ Nosso stack tecnológico:\n\n- **pdf-lib.js**: Biblioteca JavaScript para manipulação avançada de PDFs\n- **pdf.js**: Renderizador de PDFs da Mozilla para visualização\n- **JavaScript moderno**: ES6+ para performance otimizada\n- **CSS3**: Interface responsiva e atraente\n- **Web Workers**: Processamento em segundo plano sem travar a interface\n\n## 🔧 Desafios superados:\n\n- Manipular arquivos potencialmente grandes na memória do navegador\n- Manter a interface responsiva durante operações intensivas\n- Garantir compatibilidade entre diferentes navegadores\n- Implementar visualização de PDFs sem plugins externos\n\n## 🌐 Por que escolhemos esta abordagem:\n\n> \"A decisão de processar tudo localmente não foi a mais fácil tecnicamente, mas era a única certa para garantir a privacidade dos usuários. Valeu cada hora de desenvolvimento!\"\n\nPara os curiosos técnicos, estamos considerando abrir partes do código no GitHub em breve!\n\n[Teste o resultado](https://pdfwizard.vercel.app) do nosso trabalho hoje mesmo!",
+  "categories": ["Tecnologia", "Desenvolvimento"]
+}
+]

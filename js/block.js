@@ -6,7 +6,7 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 //Bloquear teclas comuns (F12, Ctrl+Shift+I, Ctrl+U)
 //--------------------------------------------------
 // ...adicione dentro da tag <script>...
-document.addEventListener('keydown', function(e) {
+/*document.addEventListener('keydown', function(e) {
   if (
     e.key === 'F12' ||
     (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
@@ -14,4 +14,4 @@ document.addEventListener('keydown', function(e) {
   ) {
     e.preventDefault();
   }
-});
+});*/

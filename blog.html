@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog – PDF Wizard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-inter">
+  <header class="header-gradient text-white p-6">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Blog PDF Wizard</h1>
+      <a href="index.html" class="text-indigo-100 underline">Voltar ao site</a>
+    </div>
+  </header>
+  <main class="max-w-4xl mx-auto p-6 space-y-8">
+    <div class="mb-6">
+      <input id="blogSearch" type="text" placeholder="Buscar posts..." class="w-full p-3 rounded-xl border border-gray-300 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100" />
+    </div>
+    <div id="blogPosts"></div>
+    <div id="blogNoResults" class="text-gray-500 text-center mt-8 hidden">Nenhum post encontrado.</div>
+  </main>
+  <footer class="text-center text-sm text-gray-500 py-8">
+    © <span id="year"></span> PDF Wizard – Blog
+  </footer>
+  <script src="./js/block.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+ 
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    let allPosts = [];
+    let allCategories = [];
+
+    async function loadBlogPosts() {
+        const res = await fetch('blog-posts.json');
+        const posts = await res.json();
+        allPosts = posts;
+        allCategories = Array.from(new Set(posts.flatMap(p => p.categories)));
+        renderCategoryFilter();
+        renderBlogPosts(posts);
+    }
+
+    function renderCategoryFilter() {
+        const main = document.querySelector('main');
+        let filterDiv = document.getElementById('blogCategoryFilter');
+        if (!filterDiv) {
+        filterDiv = document.createElement('div');
+        filterDiv.id = 'blogCategoryFilter';
+        filterDiv.className = 'mb-6 flex flex-wrap gap-2';
+        main.insertBefore(filterDiv, main.children[1]);
+        }
+        filterDiv.innerHTML = `<button class="px-3 py-1 rounded bg-indigo-100 text-indigo-700" data-cat="">Todas</button>` +
+        allCategories.map(cat =>
+            `<button class="px-3 py-1 rounded bg-gray-200 text-gray-700" data-cat="${cat}">${cat}</button>`
+        ).join('');
+        filterDiv.querySelectorAll('button').forEach(btn => {
+        btn.onclick = function() {
+            filterDiv.querySelectorAll('button').forEach(b => b.className = 'px-3 py-1 rounded bg-gray-200 text-gray-700');
+            btn.className = 'px-3 py-1 rounded bg-indigo-100 text-indigo-700';
+            filterPosts();
+        };
+        });
+    }
+
+   function renderBlogPosts(posts) {
+  const container = document.getElementById('blogPosts');
+  container.innerHTML = '';
+  if (!posts.length) {
+    document.getElementById('blogNoResults').classList.remove('hidden');
+    return;
+  }
+  document.getElementById('blogNoResults').classList.add('hidden');
+  posts.forEach(post => {
+    const article = document.createElement('article');
+    article.className = 'bg-white rounded-2xl shadow-md p-6 mb-6';
+    article.innerHTML = `
+      <h2 class="text-xl font-semibold mb-2">${post.title}</h2>
+      <p class="text-sm text-gray-500 mb-2">${new Date(post.date).toLocaleDateString()}</p>
+      <div class="mb-2 flex flex-wrap gap-2">
+        ${post.categories.map(cat => `<span class="px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-xs">${cat}</span>`).join('')}
+      </div>
+      <div class="text-gray-700 prose prose-indigo max-w-none">${marked.parse(post.content)}</div>
+    `;
+    container.appendChild(article);
+  });
+}
+
+    function filterPosts() {
+        const q = document.getElementById('blogSearch').value.trim().toLowerCase();
+        const activeCatBtn = document.querySelector('#blogCategoryFilter .bg-indigo-100');
+        const activeCat = activeCatBtn ? activeCatBtn.getAttribute('data-cat') : '';
+        let filtered = allPosts;
+        if (activeCat) {
+        filtered = filtered.filter(post => post.categories.includes(activeCat));
+        }
+        if (q) {
+        filtered = filtered.filter(post =>
+            post.title.toLowerCase().includes(q) ||
+            post.content.toLowerCase().includes(q)
+        );
+        }
+        renderBlogPosts(filtered);
+    }
+
+    document.getElementById('blogSearch').addEventListener('input', filterPosts);
+
+    loadBlogPosts();
+</script>
+ 
+</body>
+</html>

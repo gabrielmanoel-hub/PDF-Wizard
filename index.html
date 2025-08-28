@@ -380,7 +380,7 @@
     </section>
 
     <!-- Outras abas (mantidas como estão, apenas melhoradas visualmente) -->
-    <!-- MERGE -->
+     <!-- MERGE -->
     <section id="tab-merge" class="tab bg-white p-6 rounded-2xl shadow-md">
       <!-- Conteúdo mantido igual, mas com classes atualizadas -->
     </section>
@@ -404,6 +404,7 @@
       © <span id="year"></span> PDF Wizard – Feito para estudo.
       <br>
         <a href="Política-de-Privacidade.html" class="text-indigo-600 underline hover:text-indigo-800">Política de Privacidade</a>
+        <a href="blog.html" class="text-indigo-600 underline hover:text-indigo-800 ml-2">Blog</a>
     </footer>
   </main>
 
@@ -413,7 +414,9 @@
     </svg>
     <span id="toast-message">Operação concluída com sucesso!</span>
   </div>
-  <script src="./js/block.js" defer></script>
+
+  <!-- Scripts -->
+    <script src="./js/block.js" defer></script>
   <script>
     // libs
     const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib;
@@ -1066,6 +1069,12 @@ $('#tab-annotate').innerHTML = `
       <span>Y:</span>
       <input type="number" id="annotateY" value="50" min="0" style="width:70px;" />
     </label>
+    
+    <button id="moveLeft" class="btn-secondary" title="Mover para esquerda">←</button>
+    <button id="moveUp" class="btn-secondary" title="Mover para cima">↑</button>
+    <button id="moveDown" class="btn-secondary" title="Mover para baixo">↓</button>
+    <button id="moveRight" class="btn-secondary" title="Mover para direita">→</button>
+
   </div>
   <button id="btnAnnotate" class="btn-primary">Adicionar texto e baixar</button>
   <div id="annStatus" class="text-sm text-gray-500 mt-2"></div>
@@ -1193,6 +1202,29 @@ function renderAnnotatePreview() {
   $(`#${id}`).addEventListener('input', renderAnnotatePreview);
 });
 
+// Botões de mover texto
+const step = 10; // pixels por clique
+
+$('#moveLeft').addEventListener('click', () => {
+  const x = $('#annotateX');
+  x.value = Math.max(0, parseInt(x.value, 10) - step);
+  renderAnnotatePreview();
+});
+$('#moveRight').addEventListener('click', () => {
+  const x = $('#annotateX');
+  x.value = parseInt(x.value, 10) + step;
+  renderAnnotatePreview();
+});
+$('#moveUp').addEventListener('click', () => {
+  const y = $('#annotateY');
+  y.value = parseInt(y.value, 10) + step;
+  renderAnnotatePreview();
+});
+$('#moveDown').addEventListener('click', () => {
+  const y = $('#annotateY');
+  y.value = Math.max(0, parseInt(y.value, 10) - step);
+  renderAnnotatePreview();
+});
 
 
 
