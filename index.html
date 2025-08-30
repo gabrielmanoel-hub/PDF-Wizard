@@ -1056,7 +1056,7 @@ $('#tab-annotate').innerHTML = `
   <input type="file" id="annotateFile" accept="application/pdf" class="mb-4" />
   <input type="text" id="annotateText" placeholder="Texto para adicionar" class="mb-4" />
   <input type="number" id="annotatePage" min="1" value="1" class="mb-4" />
-  <div class="flex gap-3 mb-4">
+  <div class="flex gap-3 mb-4 flex-wrap">
     <label class="flex items-center gap-2">
       <span>Cor:</span>
       <input type="color" id="annotateColor" value="#1e40af" />
@@ -1069,12 +1069,22 @@ $('#tab-annotate').innerHTML = `
       <span>Y:</span>
       <input type="number" id="annotateY" value="50" min="0" style="width:70px;" />
     </label>
-    
+    <label class="flex items-center gap-2">
+      <span>Tamanho:</span>
+      <input type="number" id="annotateFontSize" value="18" min="8" max="100" style="width:70px;" />
+    </label>
+    <label class="flex items-center gap-2">
+      <span>Fonte:</span>
+      <select id="annotateFontFamily" style="width:120px;">
+        <option value="Helvetica">Helvetica</option>
+        <option value="TimesRoman">Times</option>
+        <option value="Courier">Courier</option>
+      </select>
+    </label>
     <button id="moveLeft" class="btn-secondary" title="Mover para esquerda">←</button>
     <button id="moveUp" class="btn-secondary" title="Mover para cima">↑</button>
     <button id="moveDown" class="btn-secondary" title="Mover para baixo">↓</button>
     <button id="moveRight" class="btn-secondary" title="Mover para direita">→</button>
-
   </div>
   <button id="btnAnnotate" class="btn-primary">Adicionar texto e baixar</button>
   <div id="annStatus" class="text-sm text-gray-500 mt-2"></div>
@@ -1113,7 +1123,7 @@ $('#annotateFile').addEventListener('change', async (e) => {
     showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
   }
 });
-
+// =============================================================================================
 $('#btnAnnotate').addEventListener('click', async () => {
   if (!annState.doc) {
     setStatus('ann','Carregue um PDF primeiro.');
@@ -1126,6 +1136,8 @@ $('#btnAnnotate').addEventListener('click', async () => {
   const colorHex = $('#annotateColor').value;
   const x = parseInt($('#annotateX').value, 10);
   const y = parseInt($('#annotateY').value, 10);
+  const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
+  const fontFamily = $('#annotateFontFamily').value;
 
   if (!text || isNaN(pageNum) || pageNum < 0 || pageNum >= annState.numPages) {
     setStatus('ann','Preencha o texto e página corretamente.');
@@ -1141,7 +1153,12 @@ $('#btnAnnotate').addEventListener('click', async () => {
   }
   withSpinner('ann','Adicionando anotação...');
   try {
-    const font = await annState.doc.embedFont(StandardFonts.Helvetica);
+    let font;
+    if (fontFamily === 'Helvetica') font = await annState.doc.embedFont(StandardFonts.Helvetica);
+    else if (fontFamily === 'TimesRoman') font = await annState.doc.embedFont(StandardFonts.TimesRoman);
+    else if (fontFamily === 'Courier') font = await annState.doc.embedFont(StandardFonts.Courier);
+    else font = await annState.doc.embedFont(StandardFonts.Helvetica);
+
     const page = annState.doc.getPage(pageNum);
 
     // Converter cor hex para rgb
@@ -1158,7 +1175,7 @@ $('#btnAnnotate').addEventListener('click', async () => {
     page.drawText(text, {
       x: x,
       y: y,
-      size: 18,
+      size: fontSize,
       font,
       color: rgb(rgbColor.r, rgbColor.g, rgbColor.b)
     });
@@ -1173,7 +1190,7 @@ $('#btnAnnotate').addEventListener('click', async () => {
     $('#btnAnnotate').disabled = false;
   }
 });
-
+// ==============================================================================================
 function renderAnnotatePreview() {
   if (!previewPdf) return;
   const pageNum = parseInt($('#annotatePage').value, 10) || 1;
@@ -1190,15 +1207,22 @@ function renderAnnotatePreview() {
       const x = parseInt($('#annotateX').value, 10) || 0;
       const y = parseInt($('#annotateY').value, 10) || 0;
       const color = $('#annotateColor').value || '#1e40af';
-      ctx.font = 'bold 18px Inter, Arial, sans-serif';
+      const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
+      const fontFamily = $('#annotateFontFamily').value;
+      let fontCss = 'bold';
+      if (fontFamily === 'Helvetica') fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
+      else if (fontFamily === 'TimesRoman') fontCss += ` ${fontSize}px Times, Times New Roman, serif`;
+      else if (fontFamily === 'Courier') fontCss += ` ${fontSize}px Courier, monospace`;
+      else fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
+      ctx.font = fontCss;
       ctx.fillStyle = color;
-      ctx.fillText(text, x, vp.height - y); // Y invertido para ficar igual ao PDF-lib
+      ctx.fillText(text, x, vp.height - y);
     });
   });
 }
 
 // Atualize preview ao mudar campos
-['annotateText','annotatePage','annotateColor','annotateX','annotateY'].forEach(id => {
+['annotateText','annotatePage','annotateColor','annotateX','annotateY','annotateFontSize','annotateFontFamily'].forEach(id => {
   $(`#${id}`).addEventListener('input', renderAnnotatePreview);
 });
 
