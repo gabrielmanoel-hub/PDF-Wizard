@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PDF wizard – Gratuito no Navegador</title>
-  <meta name="description" content="Ferramentas de PDF 100% no navegador: unir, dividir, extrair, girar, reordenar, anotar e compactar levemente. Sem enviar arquivos para servidores." />
-  <link rel="canonical" href="https://www.pdfwizard.com.br" />
+  <meta name="description"
+    content="Ferramentas de PDF 100% no navegador: unir, dividir, extrair, girar, reordenar, anotar e compactar levemente. Sem enviar arquivos para servidores." />
+  <link rel="canonical" href="https://www.pdfwizard.com.br/" />
   <link rel="icon" href="/imgs/Ícone PDF em fundo vermelho.png" type="image/png" />
   <link rel="icon" href="data:," />
   <!-- Google Fonts -->
@@ -37,17 +39,17 @@
       --warning: #f59e0b;
       --error: #ef4444;
     }
-    
+
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
       min-height: 100vh;
     }
-    
+
     .header-gradient {
       background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
     }
-    
+
     .tool-card {
       transition: all 0.3s ease;
       border: 1px solid transparent;
@@ -55,22 +57,22 @@
       border-radius: 16px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     }
-    
+
     .tool-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
       border-color: var(--primary-light);
     }
-    
+
     .tab {
       display: none;
       animation: fadeIn 0.3s ease;
     }
-    
+
     .tab.active {
       display: block;
     }
-    
+
     .thumb {
       border: 1px solid #e5e7eb;
       border-radius: 12px;
@@ -79,23 +81,23 @@
       overflow: hidden;
       transition: all 0.2s ease;
     }
-    
+
     .thumb:hover {
       transform: scale(1.02);
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
-    
+
     .thumb canvas {
       width: 100%;
       height: auto;
       display: block;
     }
-    
+
     .thumb.selected {
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
     }
-    
+
     .spinner {
       border: 2px solid rgba(0, 0, 0, 0.08);
       border-top-color: var(--primary);
@@ -105,7 +107,7 @@
       animation: spin 1s linear infinite;
       display: inline-block;
     }
-    
+
     .btn-primary {
       background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
       color: white;
@@ -116,16 +118,16 @@
       transition: all 0.2s ease;
       box-shadow: 0 2px 4px rgba(99, 102, 241, 0.3);
     }
-    
+
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(99, 102, 241, 0.4);
     }
-    
+
     .btn-primary:active {
       transform: translateY(0);
     }
-    
+
     .btn-secondary {
       background: #f8fafc;
       color: #64748b;
@@ -135,12 +137,12 @@
       font-weight: 500;
       transition: all 0.2s ease;
     }
-    
+
     .btn-secondary:hover {
       background: #f1f5f9;
       transform: translateY(-2px);
     }
-    
+
     input[type="file"] {
       border: 2px dashed #cbd5e1;
       border-radius: 12px;
@@ -149,26 +151,28 @@
       background: #f8fafc;
       transition: all 0.2s ease;
     }
-    
+
     input[type="file"]:hover {
       border-color: var(--primary-light);
       background: #f0f9ff;
     }
-    
-    input[type="text"], input[type="number"] {
+
+    input[type="text"],
+    input[type="number"] {
       border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 12px 16px;
       width: 100%;
       transition: all 0.2s ease;
     }
-    
-    input[type="text"]:focus, input[type="number"]:focus {
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
       outline: none;
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
-    
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -179,24 +183,25 @@
       background: #f1f5f9;
       color: #475569;
     }
-    
+
     @keyframes spin {
       to {
         transform: rotate(360deg);
       }
     }
-    
+
     @keyframes fadeIn {
       from {
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    
+
     .progress-bar {
       height: 6px;
       border-radius: 3px;
@@ -204,14 +209,14 @@
       overflow: hidden;
       margin-top: 8px;
     }
-    
+
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
       border-radius: 3px;
       transition: width 0.3s ease;
     }
-    
+
     .toast {
       position: fixed;
       bottom: 20px;
@@ -228,30 +233,33 @@
       transition: all 0.3s ease;
       z-index: 1000;
     }
-    
+
     .toast.visible {
       transform: translateY(0);
       opacity: 1;
     }
-    
+
     .toast.success {
       border-left: 4px solid var(--success);
     }
-    
+
     .toast.error {
       border-left: 4px solid var(--error);
     }
-    
+
     .toast.info {
       border-left: 4px solid var(--primary);
     }
   </style>
 </head>
+
 <body class="text-gray-800">
   <header class="border-b header-gradient text-white">
     <div class="max-w-6xl mx-auto p-4 flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-white text-indigo-600 flex items-center justify-center font-bold shadow-md">PDF</div>
+        <div
+          class="w-10 h-10 rounded-2xl bg-white text-indigo-600 flex items-center justify-center font-bold shadow-md">
+          PDF</div>
         <div>
           <h1 class="text-xl font-bold">PDF wizard</h1>
           <p class="text-sm text-indigo-100">Tudo no seu navegador · sem upload · gratuito</p>
@@ -264,12 +272,14 @@
     <section class="bg-yellow-50 border border-yellow-200 p-4 rounded-2xl text-sm flex items-start gap-3">
       <div class="text-yellow-700 bg-yellow-100 p-2 rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
       </div>
       <div>
         <h3 class="font-medium">Processamento local</h3>
-        <p class="mt-1">Todos os arquivos são processados <strong>localmente</strong> no seu navegador. Nada é enviado para servidores.</p>
+        <p class="mt-1">Todos os arquivos são processados <strong>localmente</strong> no seu navegador. Nada é enviado
+          para servidores.</p>
       </div>
     </section>
 
@@ -284,7 +294,7 @@
         <h2 class="text-lg font-semibold mb-2">Unir PDFs</h2>
         <p class="text-sm text-gray-500">Combine múltiplos arquivos em um só.</p>
       </div>
-      
+
       <div class="tool-card p-6 rounded-2xl cursor-pointer ring-2 ring-indigo-200" data-tab="tab-split">
         <div class="w-12 h-12 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -294,27 +304,29 @@
         <h2 class="text-lg font-semibold mb-2">Dividir / Extrair</h2>
         <p class="text-sm text-gray-500">Extraia páginas específicas ou intervalos.</p>
       </div>
-      
+
       <div class="tool-card p-6 rounded-2xl cursor-pointer" data-tab="tab-rotate">
         <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </div>
         <h2 class="text-lg font-semibold mb-2">Girar / Reordenar</h2>
         <p class="text-sm text-gray-500">Rotacione e arraste páginas para mudar ordem.</p>
       </div>
-      
+
       <div class="tool-card p-6 rounded-2xl cursor-pointer" data-tab="tab-annotate">
         <div class="w-12 h-12 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
           </svg>
         </div>
         <h2 class="text-lg font-semibold mb-2">Anotar</h2>
         <p class="text-sm text-gray-500">Adicione textos, assinaturas e imagens.</p>
       </div>
-      
+
       <div class="tool-card p-6 rounded-2xl cursor-pointer" data-tab="tab-compress">
         <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -324,6 +336,20 @@
         <h2 class="text-lg font-semibold mb-2">Compactar</h2>
         <p class="text-sm text-gray-500">Reduza o tamanho do PDF (leve).</p>
       </div>
+      <!-- WORD PDF -->
+      <!-- ======================================================================== -->
+       <!-- 
+      <div class="tool-card p-6 rounded-2xl cursor-pointer" data-tab="tab-word2pdf">
+        <div class="w-12 h-12 rounded-xl bg-red-100 text-red-600 flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+        <h2 class="text-lg font-semibold mb-2">Word para PDF</h2>
+        <p class="text-sm text-gray-500">Converta arquivos DOCX para PDF.</p>
+      </div>
+    -->
+      <!-- ======================================================================== -->
     </section>
 
     <!-- TABS / FERRAMENTAS -->
@@ -333,56 +359,80 @@
         <h2 class="text-xl font-semibold text-gray-800">Dividir / Extrair páginas</h2>
         <span class="badge">pré-visualização</span>
       </div>
-      <p class="text-gray-600 mb-6">Abra um PDF, selecione páginas clicando nas miniaturas ou use o campo de intervalo (ex.: 1-3,5,10) e exporte.</p>
-      
+      <p class="text-gray-600 mb-6">Abra um PDF, selecione páginas clicando nas miniaturas ou use o campo de intervalo
+        (ex.: 1-3,5,10) e exporte.</p>
+
       <div class="flex flex-col lg:flex-row gap-6">
         <div class="space-y-4 w-full lg:w-1/3">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Selecionar arquivo PDF</label>
             <input type="file" id="splitFile" accept="application/pdf" class="cursor-pointer" />
           </div>
-          
+
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Intervalo de páginas</label>
             <input type="text" id="rangeInput" placeholder="Ex: 1-3,5,10" class="w-full" />
             <p class="text-xs text-gray-500 mt-1">Use vírgulas para separar páginas e hífen para intervalos</p>
           </div>
-          
+
           <div class="grid grid-cols-2 gap-3">
             <button id="btnSelectAll" class="btn-secondary">Selecionar tudo</button>
             <button id="btnClearSel" class="btn-secondary">Limpar</button>
           </div>
-          
+
           <div class="pt-4">
             <button id="btnExtractSelected" class="btn-primary w-full flex items-center justify-center gap-2">
               <span>Extrair páginas selecionadas</span>
-              <svg id="extract-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              <svg id="extract-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               <span id="extract-spinner" class="spinner hidden"></span>
             </button>
-            
+
             <div class="progress-bar mt-3 hidden" id="extract-progress">
               <div class="progress-fill" id="extract-progress-fill" style="width: 0%"></div>
             </div>
-            
+
             <div id="splitStatus" class="text-sm text-gray-500 mt-2"></div>
           </div>
         </div>
-        
+
         <div class="w-full lg:w-2/3">
           <div class="flex items-center justify-between mb-4">
             <h3 class="font-medium text-gray-700">Visualização das páginas</h3>
             <span id="pageCount" class="text-sm text-gray-500">0 páginas carregadas</span>
           </div>
-          
+
           <div id="splitGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
         </div>
       </div>
     </section>
 
+    <!-- WORD to PDF -->
+    <!-- ====================================================================== -->
+    <!-->
+    <section id="tab-word2pdf" class="tab bg-white p-6 rounded-2xl shadow-md">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Converter Word para PDF</h2>
+      <p class="text-gray-600 mb-6">Selecione um arquivo .docx de até 50 MB para converter.</p>
+
+      <input type="file" id="wordFile" accept=".docx" class="cursor-pointer mb-4" />
+
+      <button id="btnWord2Pdf" class="btn-primary w-full flex items-center justify-center gap-2">
+        <span>Converter</span>
+        <span id="word-spinner" class="spinner hidden"></span>
+      </button>
+
+      <div class="progress-bar mt-3 hidden" id="word-progress">
+        <div class="progress-fill" id="word-progress-fill" style="width: 0%"></div>
+      </div>
+
+      <div id="wordStatus" class="text-sm text-gray-500 mt-3"></div>
+    </section>
+  --> <!-- ====================================================================== -->
     <!-- Outras abas (mantidas como estão, apenas melhoradas visualmente) -->
-     <!-- MERGE -->
+    <!-- MERGE -->
     <section id="tab-merge" class="tab bg-white p-6 rounded-2xl shadow-md">
       <!-- Conteúdo mantido igual, mas com classes atualizadas -->
     </section>
@@ -405,20 +455,23 @@
     <footer class="text-center text-sm text-gray-500 py-8">
       © <span id="year"></span> PDF Wizard – Feito para estudo.
       <br>
-        <a href="Política-de-Privacidade.html" class="text-indigo-600 underline hover:text-indigo-800">Política de Privacidade</a>
-        <a href="blog.html" class="text-indigo-600 underline hover:text-indigo-800 ml-2">Blog</a>
+      <a href="Política-de-Privacidade.html" class="text-indigo-600 underline hover:text-indigo-800">Política de
+        Privacidade</a>
+      <a href="blog.html" class="text-indigo-600 underline hover:text-indigo-800 ml-2">Blog</a>
     </footer>
   </main>
 
   <div id="toast" class="toast">
-    <svg id="toast-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <svg id="toast-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
     <span id="toast-message">Operação concluída com sucesso!</span>
   </div>
 
   <!-- Scripts -->
-    <script src="./js/block.js" defer></script>
+  <script src="./js/block.js" defer></script>
   <script>
     // libs
     const { PDFDocument, StandardFonts, rgb, degrees } = PDFLib;
@@ -427,30 +480,30 @@
     const readAsArrayBuffer = file => new Promise((res, rej) => {
       const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsArrayBuffer(file);
     });
-    const downloadBlob = (blob, filename) => { const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); setTimeout(()=>URL.revokeObjectURL(url), 1500); };
+    const downloadBlob = (blob, filename) => { const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1500); };
 
     // UI helpers
     const statusMap = {
       merge: '#mergeStatus', split: '#splitStatus', rr: '#rrStatus', ann: '#annStatus', cmp: '#cmpStatus'
     };
-    
-    function setStatus(key, html) { 
-      const el = $(statusMap[key]); 
-      if (el) el.innerHTML = html; 
+
+    function setStatus(key, html) {
+      const el = $(statusMap[key]);
+      if (el) el.innerHTML = html;
     }
-    
-    function withSpinner(key, message) { 
-      setStatus(key, `<span class='spinner'></span> ${message}`); 
+
+    function withSpinner(key, message) {
+      setStatus(key, `<span class='spinner'></span> ${message}`);
     }
-    
+
     function showToast(message, type = 'success') {
       const toast = $('#toast');
       const toastIcon = $('#toast-icon');
       const toastMessage = $('#toast-message');
-      
+
       toastMessage.textContent = message;
       toast.className = 'toast';
-      
+
       // Configurar ícone e cor baseado no tipo
       if (type === 'success') {
         toast.classList.add('success');
@@ -465,9 +518,9 @@
         toastIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />';
         toastIcon.stroke = '#6366f1';
       }
-      
+
       toast.classList.add('visible');
-      
+
       // Auto-ocultar após 3 segundos
       setTimeout(() => {
         toast.classList.remove('visible');
@@ -482,8 +535,8 @@
       $$('.tab').forEach(t => t.classList.remove('active'));
       $(`#${id}`).classList.add('active');
       // highlight card
-      $$('.tool-card').forEach(c => c.classList.remove('ring-2','ring-indigo-200'));
-      card.classList.add('ring-2','ring-indigo-200');
+      $$('.tool-card').forEach(c => c.classList.remove('ring-2', 'ring-indigo-200'));
+      card.classList.add('ring-2', 'ring-indigo-200');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }));
 
@@ -491,21 +544,21 @@
     function parseRange(text, max) {
       const set = new Set();
       if (!text) return set;
-      
+
       text.split(',').map(s => s.trim()).forEach(part => {
         if (!part) return;
-        
+
         // Verificar se é um intervalo (contém hífen)
         if (part.includes('-')) {
           const [startStr, endStr] = part.split('-').map(s => s.trim());
           const start = parseInt(startStr, 10);
           const end = parseInt(endStr, 10);
-          
+
           if (isNaN(start) || isNaN(end)) return;
-          
+
           const realStart = Math.max(1, Math.min(start, end));
           const realEnd = Math.min(max, Math.max(start, end));
-          
+
           for (let i = realStart; i <= realEnd; i++) {
             set.add(i - 1); // Converter para índice 0-based
           }
@@ -517,7 +570,7 @@
           }
         }
       });
-      
+
       return set;
     }
 
@@ -527,58 +580,58 @@
     $('#splitFile').addEventListener('change', async (e) => {
       const f = e.target.files[0]; if (!f) return;
       try {
-        withSpinner('split','Carregando PDF...');
+        withSpinner('split', 'Carregando PDF...');
         $('#splitGrid').innerHTML = '';
         $('#pageCount').textContent = '0 páginas carregadas';
-        
+
         const bytes = await readAsArrayBuffer(f);
         splitState.doc = await PDFDocument.load(bytes);
         splitState.numPages = splitState.doc.getPageCount();
-        splitState.pdf = await pdfjsLib.getDocument({data: bytes}).promise;
-        
+        splitState.pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+
         $('#pageCount').textContent = `${splitState.numPages} página${splitState.numPages !== 1 ? 's' : ''} carregada${splitState.numPages !== 1 ? 's' : ''}`;
         await renderSplitGrid();
         setStatus('split', `PDF carregado — ${splitState.numPages} página(s).`);
         showToast(`PDF carregado com ${splitState.numPages} páginas`, 'success');
       } catch (err) {
-        console.error(err); 
-        setStatus('split','Erro ao abrir PDF.');
+        console.error(err);
+        setStatus('split', 'Erro ao abrir PDF.');
         showToast('Erro ao carregar o PDF', 'error');
       }
     });
 
     async function renderSplitGrid() {
-      const grid = $('#splitGrid'); 
+      const grid = $('#splitGrid');
       grid.innerHTML = '';
-      
+
       for (let i = 1; i <= splitState.numPages; i++) {
         const page = await splitState.pdf.getPage(i);
-        const vp = page.getViewport({scale: 0.25});
-        const canvas = document.createElement('canvas'); 
-        canvas.width = Math.floor(vp.width); 
+        const vp = page.getViewport({ scale: 0.25 });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.floor(vp.width);
         canvas.height = Math.floor(vp.height);
-        const ctx = canvas.getContext('2d'); 
-        
-        // Renderizar a página
-        await page.render({canvasContext: ctx, viewport: vp}).promise;
+        const ctx = canvas.getContext('2d');
 
-        const wrap = document.createElement('div'); 
+        // Renderizar a página
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+
+        const wrap = document.createElement('div');
         wrap.className = 'thumb p-3 relative';
         wrap.innerHTML = `
           <label class="flex items-center gap-2 p-2 cursor-pointer">
-            <input type="checkbox" class="pageCheck absolute opacity-0" data-idx="${i-1}" />
+            <input type="checkbox" class="pageCheck absolute opacity-0" data-idx="${i - 1}" />
             <span class="checkmark w-5 h-5 border border-gray-300 rounded-md flex-shrink-0"></span>
             <span class="text-sm font-medium">Página ${i}</span>
           </label>
         `;
-        
+
         // Adicionar canvas
         wrap.appendChild(canvas);
-        
+
         // Adicionar evento de clique para seleção
         const label = wrap.querySelector('label');
         const checkbox = wrap.querySelector('input');
-        
+
         label.addEventListener('click', (e) => {
           if (e.target !== checkbox) {
             checkbox.checked = !checkbox.checked;
@@ -586,11 +639,11 @@
             updateRangeFromCheckboxes();
           }
         });
-        
+
         grid.appendChild(wrap);
       }
     }
-    
+
     function updateThumbSelection(thumbElement, isSelected) {
       if (isSelected) {
         thumbElement.classList.add('selected');
@@ -613,48 +666,48 @@
         updateThumbSelection(ch.closest('.thumb'), true);
       });
       updateRangeFromCheckboxes();
-      setStatus('split','Todas selecionadas.');
+      setStatus('split', 'Todas selecionadas.');
     });
-    
+
     $('#btnClearSel').addEventListener('click', () => {
       $$('#splitGrid .pageCheck').forEach(ch => {
         ch.checked = false;
         updateThumbSelection(ch.closest('.thumb'), false);
       });
       $('#rangeInput').value = '';
-      setStatus('split','Seleção limpa.');
+      setStatus('split', 'Seleção limpa.');
     });
 
     // Atualizar checkboxes a partir do campo de intervalo
     $('#rangeInput').addEventListener('input', () => {
       if (!splitState.numPages) return;
-      
+
       const rangeText = $('#rangeInput').value;
       const selectedPages = parseRange(rangeText, splitState.numPages);
-      
+
       $$('#splitGrid .pageCheck').forEach((ch, idx) => {
         ch.checked = selectedPages.has(idx);
         updateThumbSelection(ch.closest('.thumb'), selectedPages.has(idx));
       });
     });
-    
+
     // Atualizar campo de intervalo a partir dos checkboxes
     function updateRangeFromCheckboxes() {
       const selectedIndices = $$('#splitGrid .pageCheck:checked').map(ch => parseInt(ch.dataset.idx, 10) + 1);
-      
+
       if (selectedIndices.length === 0) {
         $('#rangeInput').value = '';
         return;
       }
-      
+
       // Ordenar os índices
       selectedIndices.sort((a, b) => a - b);
-      
+
       // Criar intervalos contíguos
       const ranges = [];
       let start = selectedIndices[0];
       let end = selectedIndices[0];
-      
+
       for (let i = 1; i < selectedIndices.length; i++) {
         if (selectedIndices[i] === end + 1) {
           end = selectedIndices[i];
@@ -664,73 +717,73 @@
           end = selectedIndices[i];
         }
       }
-      
+
       ranges.push(start === end ? start : `${start}-${end}`);
       $('#rangeInput').value = ranges.join(',');
     }
 
     $('#btnExtractSelected').addEventListener('click', async () => {
-      if (!splitState.doc) { 
-        setStatus('split','Carregue um PDF primeiro.'); 
+      if (!splitState.doc) {
+        setStatus('split', 'Carregue um PDF primeiro.');
         showToast('Por favor, carregue um PDF primeiro', 'error');
-        return; 
+        return;
       }
-      
+
       try {
         // Mostrar spinner e esconder ícone de download
         $('#extract-spinner').classList.remove('hidden');
         $('#extract-icon').classList.add('hidden');
         $('#extract-progress').classList.remove('hidden');
         $('#btnExtractSelected').disabled = true;
-        
-        withSpinner('split','Processando extração...');
-        
+
+        withSpinner('split', 'Processando extração...');
+
         // Obter páginas selecionadas
         const checks = $$('#splitGrid .pageCheck:checked');
         const fromChecks = new Set(checks.map(ch => parseInt(ch.dataset.idx, 10)));
-        
+
         // Também verificar o campo de intervalo para garantir sincronização
         const fromRange = parseRange($('#rangeInput').value, splitState.numPages);
-        
+
         // Combinar as seleções
         const wanted = new Set([...fromChecks, ...fromRange]);
-        
-        if (wanted.size === 0) { 
-          setStatus('split','Nenhuma página selecionada.'); 
+
+        if (wanted.size === 0) {
+          setStatus('split', 'Nenhuma página selecionada.');
           showToast('Selecione pelo menos uma página', 'error');
-          
+
           $('#extract-spinner').classList.add('hidden');
           $('#extract-icon').classList.remove('hidden');
           $('#btnExtractSelected').disabled = false;
-          return; 
+          return;
         }
-        
+
         const wantedArray = Array.from(wanted).sort((a, b) => a - b);
-        
+
         // Atualizar barra de progresso
         $('#extract-progress-fill').style.width = '30%';
-        
+
         const out = await PDFDocument.create();
         $('#extract-progress-fill').style.width = '60%';
-        
+
         const pages = await out.copyPages(splitState.doc, wantedArray);
         $('#extract-progress-fill').style.width = '80%';
-        
+
         pages.forEach(p => out.addPage(p));
         $('#extract-progress-fill').style.width = '90%';
-        
-        const bytes = await out.save(); 
+
+        const bytes = await out.save();
         $('#extract-progress-fill').style.width = '100%';
-        
-        downloadBlob(new Blob([bytes], {type: 'application/pdf'}), 'extraido.pdf');
+
+        downloadBlob(new Blob([bytes], { type: 'application/pdf' }), 'extraido.pdf');
         setStatus('split', 'Pronto — download iniciado.');
         showToast('Extração concluída! O download começará em instantes.', 'success');
-        
-      } catch(err) { 
-        console.error(err); 
-        setStatus('split','Erro ao extrair páginas.');
+
+      } catch (err) {
+        console.error(err);
+        setStatus('split', 'Erro ao extrair páginas.');
         showToast('Erro durante a extração', 'error');
-      } finally { 
+      } finally {
         // Restaurar ícone e habilitar botão
         setTimeout(() => {
           $('#extract-spinner').classList.add('hidden');
@@ -740,22 +793,22 @@
           $('#btnExtractSelected').disabled = false;
         }, 1000);
       }
-      });
+    });
 
     // ===================== OUTRAS FERRAMENTAS =====================
     // (O código para outras ferramentas permanece similar, mas com melhorias visuais)
     // ... [código para merge, rotate, annotate, compress] ...
-    
+
     // Unir PDFs (Merge)
     //--------------------------------------------------------------
     // ...adicione antes do comentário das outras ferramentas...
 
     // ...adicione no início do <script> (após as libs)...
-const MAX_SIZE = 20 * 1024 * 1024; // 20MB
+    const MAX_SIZE = 20 * 1024 * 1024; // 20MB
 
-// ...substitua o bloco MERGE pelo abaixo...
+    // ...substitua o bloco MERGE pelo abaixo...
 
-$('#tab-merge').innerHTML = `
+    $('#tab-merge').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Unir PDFs</h2>
   <input type="file" id="mergeFiles" multiple accept="application/pdf" class="mb-4" />
   <div id="mergePreviewGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4"></div>
@@ -766,117 +819,117 @@ $('#tab-merge').innerHTML = `
   <div id="mergeStatus" class="text-sm text-gray-500 mt-2"></div>
 `;
 
-let mergeState = { files: [], pdfs: [], previews: [] };
+    let mergeState = { files: [], pdfs: [], previews: [] };
 
-$('#mergeFiles').addEventListener('change', async (e) => {
-  const files = Array.from(e.target.files);
-  mergeState.files = [];
-  mergeState.pdfs = [];
-  mergeState.previews = [];
-  $('#mergePreviewGrid').innerHTML = '';
-  for (const file of files) {
-    if (file.size > MAX_SIZE) {
-      setStatus('merge', 'Arquivo muito grande (máx. 20MB): ' + file.name);
-      showToast('Arquivo muito grande: ' + file.name, 'error');
-      continue;
-    }
-    mergeState.files.push(file);
-    // Carregar para pdf-lib
-    const bytes = await readAsArrayBuffer(file);
-    const pdfDoc = await PDFDocument.load(bytes);
-    mergeState.pdfs.push(pdfDoc);
-    // Carregar para preview
-    const previewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
-    mergeState.previews.push(previewPdf);
-  }
-  await renderMergePreviewGrid();
-  setStatus('merge', `${mergeState.files.length} arquivo(s) prontos para unir. Arraste para reordenar.`);
-  showToast('Arquivos carregados!', 'success');
-  $('#mergeProgressBar').style.width = '0%';
-});
+    $('#mergeFiles').addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      mergeState.files = [];
+      mergeState.pdfs = [];
+      mergeState.previews = [];
+      $('#mergePreviewGrid').innerHTML = '';
+      for (const file of files) {
+        if (file.size > MAX_SIZE) {
+          setStatus('merge', 'Arquivo muito grande (máx. 20MB): ' + file.name);
+          showToast('Arquivo muito grande: ' + file.name, 'error');
+          continue;
+        }
+        mergeState.files.push(file);
+        // Carregar para pdf-lib
+        const bytes = await readAsArrayBuffer(file);
+        const pdfDoc = await PDFDocument.load(bytes);
+        mergeState.pdfs.push(pdfDoc);
+        // Carregar para preview
+        const previewPdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+        mergeState.previews.push(previewPdf);
+      }
+      await renderMergePreviewGrid();
+      setStatus('merge', `${mergeState.files.length} arquivo(s) prontos para unir. Arraste para reordenar.`);
+      showToast('Arquivos carregados!', 'success');
+      $('#mergeProgressBar').style.width = '0%';
+    });
 
-async function renderMergePreviewGrid() {
-  const grid = $('#mergePreviewGrid');
-  grid.innerHTML = '';
-  for (let i = 0; i < mergeState.files.length; i++) {
-    const file = mergeState.files[i];
-    const previewPdf = mergeState.previews[i];
-    // Renderizar primeira página do PDF
-    const page = await previewPdf.getPage(1);
-    const vp = page.getViewport({scale: 0.25});
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.floor(vp.width);
-    canvas.height = Math.floor(vp.height);
-    await page.render({canvasContext: canvas.getContext('2d'), viewport: vp}).promise;
-    const div = document.createElement('div');
-    div.className = 'thumb p-2 flex flex-col items-center';
-    div.innerHTML = `
+    async function renderMergePreviewGrid() {
+      const grid = $('#mergePreviewGrid');
+      grid.innerHTML = '';
+      for (let i = 0; i < mergeState.files.length; i++) {
+        const file = mergeState.files[i];
+        const previewPdf = mergeState.previews[i];
+        // Renderizar primeira página do PDF
+        const page = await previewPdf.getPage(1);
+        const vp = page.getViewport({ scale: 0.25 });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.floor(vp.width);
+        canvas.height = Math.floor(vp.height);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+        const div = document.createElement('div');
+        div.className = 'thumb p-2 flex flex-col items-center';
+        div.innerHTML = `
       <div class="mb-2 text-sm">${file.name}</div>
       <div class="mb-2 text-xs text-gray-500">Página 1</div>
     `;
-    div.appendChild(canvas);
-    grid.appendChild(div);
-  }
-  // Permitir arrastar para reordenar
-  Sortable.create(grid, {
-    animation: 150,
-    onEnd: function (evt) {
-      const oldFiles = mergeState.files.slice();
-      const movedFile = oldFiles.splice(evt.oldIndex, 1)[0];
-      oldFiles.splice(evt.newIndex, 0, movedFile);
-      mergeState.files = oldFiles;
-      // Reordenar pdfs e previews também
-      const oldPdfs = mergeState.pdfs.slice();
-      const movedPdf = oldPdfs.splice(evt.oldIndex, 1)[0];
-      oldPdfs.splice(evt.newIndex, 0, movedPdf);
-      mergeState.pdfs = oldPdfs;
-      const oldPreviews = mergeState.previews.slice();
-      const movedPreview = oldPreviews.splice(evt.oldIndex, 1)[0];
-      oldPreviews.splice(evt.newIndex, 0, movedPreview);
-      mergeState.previews = oldPreviews;
-      renderMergePreviewGrid();
+        div.appendChild(canvas);
+        grid.appendChild(div);
+      }
+      // Permitir arrastar para reordenar
+      Sortable.create(grid, {
+        animation: 150,
+        onEnd: function (evt) {
+          const oldFiles = mergeState.files.slice();
+          const movedFile = oldFiles.splice(evt.oldIndex, 1)[0];
+          oldFiles.splice(evt.newIndex, 0, movedFile);
+          mergeState.files = oldFiles;
+          // Reordenar pdfs e previews também
+          const oldPdfs = mergeState.pdfs.slice();
+          const movedPdf = oldPdfs.splice(evt.oldIndex, 1)[0];
+          oldPdfs.splice(evt.newIndex, 0, movedPdf);
+          mergeState.pdfs = oldPdfs;
+          const oldPreviews = mergeState.previews.slice();
+          const movedPreview = oldPreviews.splice(evt.oldIndex, 1)[0];
+          oldPreviews.splice(evt.newIndex, 0, movedPreview);
+          mergeState.previews = oldPreviews;
+          renderMergePreviewGrid();
+        }
+      });
     }
-  });
-}
 
-$('#btnMerge').addEventListener('click', async () => {
-  if (!mergeState.files.length) {
-    setStatus('merge', 'Selecione arquivos PDF.');
-    showToast('Selecione arquivos PDF.', 'error');
-    return;
-  }
-  $('#btnMerge').disabled = true;
-  $('#mergeProgressBar').style.width = '0%';
-  withSpinner('merge', 'Unindo PDFs...');
-  try {
-    const mergedPdf = await PDFDocument.create();
-    setStatus('merge', 'Processando arquivos...');
-    for (let i = 0; i < mergeState.pdfs.length; i++) {
-      setStatus('merge', `Adicionando "${mergeState.files[i].name}" (${i+1}/${mergeState.pdfs.length})...`);
-      $('#mergeProgressBar').style.width = `${Math.round((i/mergeState.pdfs.length)*100)}%`;
-      const pdf = mergeState.pdfs[i];
-      const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-      pages.forEach(p => mergedPdf.addPage(p));
-    }
-    $('#mergeProgressBar').style.width = '100%';
-    setStatus('merge', 'Salvando PDF final...');
-    const outBytes = await mergedPdf.save();
-    downloadBlob(new Blob([outBytes], {type: 'application/pdf'}), 'unido.pdf');
-    setStatus('merge', 'PDFs unidos com sucesso!');
-    showToast('PDFs unidos!', 'success');
-  } catch (err) {
-    setStatus('merge', 'Erro ao unir PDFs: ' + (err.message || err));
-    showToast('Erro ao unir PDFs: ' + (err.message || err), 'error');
-  } finally {
-    $('#btnMerge').disabled = false;
-  }
-});
+    $('#btnMerge').addEventListener('click', async () => {
+      if (!mergeState.files.length) {
+        setStatus('merge', 'Selecione arquivos PDF.');
+        showToast('Selecione arquivos PDF.', 'error');
+        return;
+      }
+      $('#btnMerge').disabled = true;
+      $('#mergeProgressBar').style.width = '0%';
+      withSpinner('merge', 'Unindo PDFs...');
+      try {
+        const mergedPdf = await PDFDocument.create();
+        setStatus('merge', 'Processando arquivos...');
+        for (let i = 0; i < mergeState.pdfs.length; i++) {
+          setStatus('merge', `Adicionando "${mergeState.files[i].name}" (${i + 1}/${mergeState.pdfs.length})...`);
+          $('#mergeProgressBar').style.width = `${Math.round((i / mergeState.pdfs.length) * 100)}%`;
+          const pdf = mergeState.pdfs[i];
+          const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          pages.forEach(p => mergedPdf.addPage(p));
+        }
+        $('#mergeProgressBar').style.width = '100%';
+        setStatus('merge', 'Salvando PDF final...');
+        const outBytes = await mergedPdf.save();
+        downloadBlob(new Blob([outBytes], { type: 'application/pdf' }), 'unido.pdf');
+        setStatus('merge', 'PDFs unidos com sucesso!');
+        showToast('PDFs unidos!', 'success');
+      } catch (err) {
+        setStatus('merge', 'Erro ao unir PDFs: ' + (err.message || err));
+        showToast('Erro ao unir PDFs: ' + (err.message || err), 'error');
+      } finally {
+        $('#btnMerge').disabled = false;
+      }
+    });
 
-// Girar/Reordenar Páginas
-//------------------------------------------------------------
-// ...adicione antes do comentário das outras ferramentas...
+    // Girar/Reordenar Páginas
+    //------------------------------------------------------------
+    // ...adicione antes do comentário das outras ferramentas...
 
-$('#tab-rotate').innerHTML = `
+    $('#tab-rotate').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Girar / Reordenar páginas</h2>
   <input type="file" id="rotateFile" accept="application/pdf" class="mb-4" />
   <div id="rotateGrid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4"></div>
@@ -894,166 +947,166 @@ $('#tab-rotate').innerHTML = `
   </div>
 `;
 
-let rrState = { doc: null, order: [], rotations: [] };
-let rotatePreviewPdf = null;
+    let rrState = { doc: null, order: [], rotations: [] };
+    let rotatePreviewPdf = null;
 
-$('#rotateFile').addEventListener('change', async (e) => {
-  const f = e.target.files[0];
-  if (!f) return;
-  if (f.size > MAX_SIZE) {
-    setStatus('rr', 'Arquivo muito grande (máx. 20MB): ' + f.name);
-    showToast('Arquivo muito grande: ' + f.name, 'error');
-    e.target.value = '';
-    return;
-  }
-  try {
-    withSpinner('rr','Carregando PDF...');
-    const bytes = await readAsArrayBuffer(f);
-    rrState.doc = await PDFDocument.load(bytes);
-    rrState.order = rrState.doc.getPageIndices();
-    rrState.rotations = Array(rrState.order.length).fill(0);
-    rotatePreviewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
-    await renderRotateGrid();
-    await renderRotatePreview();
-    setStatus('rr', `PDF carregado — ${rrState.order.length} página(s).`);
-    showToast(`PDF carregado com ${rrState.order.length} páginas`, 'success');
-  } catch (err) {
-    setStatus('rr','Erro ao abrir PDF: ' + (err.message || err));
-    showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
-  }
-});
+    $('#rotateFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      if (f.size > MAX_SIZE) {
+        setStatus('rr', 'Arquivo muito grande (máx. 20MB): ' + f.name);
+        showToast('Arquivo muito grande: ' + f.name, 'error');
+        e.target.value = '';
+        return;
+      }
+      try {
+        withSpinner('rr', 'Carregando PDF...');
+        const bytes = await readAsArrayBuffer(f);
+        rrState.doc = await PDFDocument.load(bytes);
+        rrState.order = rrState.doc.getPageIndices();
+        rrState.rotations = Array(rrState.order.length).fill(0);
+        rotatePreviewPdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+        await renderRotateGrid();
+        await renderRotatePreview();
+        setStatus('rr', `PDF carregado — ${rrState.order.length} página(s).`);
+        showToast(`PDF carregado com ${rrState.order.length} páginas`, 'success');
+      } catch (err) {
+        setStatus('rr', 'Erro ao abrir PDF: ' + (err.message || err));
+        showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
+      }
+    });
 
-async function renderRotateGrid() {
-  const grid = $('#rotateGrid');
-  grid.innerHTML = '';
-  for (let i = 0; i < rrState.order.length; i++) {
-    const pageNum = rrState.order[i];
-    const div = document.createElement('div');
-    div.className = 'thumb p-2 flex flex-col items-center';
-    div.innerHTML = `
+    async function renderRotateGrid() {
+      const grid = $('#rotateGrid');
+      grid.innerHTML = '';
+      for (let i = 0; i < rrState.order.length; i++) {
+        const pageNum = rrState.order[i];
+        const div = document.createElement('div');
+        div.className = 'thumb p-2 flex flex-col items-center';
+        div.innerHTML = `
       <div class="mb-2 text-sm">Página ${pageNum + 1}</div>
       <div class="mb-2">Rotação: <span id="rot${i}">${rrState.rotations[i]}°</span></div>
       <button class="btn-secondary mb-2" data-idx="${i}">Selecionar</button>
     `;
-    grid.appendChild(div);
-  }
-  Sortable.create(grid, {
-    animation: 150,
-    onEnd: function (evt) {
-      const oldOrder = rrState.order.slice();
-      const moved = oldOrder.splice(evt.oldIndex, 1)[0];
-      oldOrder.splice(evt.newIndex, 0, moved);
-      rrState.order = oldOrder;
-      const oldRot = rrState.rotations.slice();
-      const movedRot = oldRot.splice(evt.oldIndex, 1)[0];
-      oldRot.splice(evt.newIndex, 0, movedRot);
-      rrState.rotations = oldRot;
-      renderRotateGrid();
-      renderRotatePreview(); // Atualiza preview ao reordenar
+        grid.appendChild(div);
+      }
+      Sortable.create(grid, {
+        animation: 150,
+        onEnd: function (evt) {
+          const oldOrder = rrState.order.slice();
+          const moved = oldOrder.splice(evt.oldIndex, 1)[0];
+          oldOrder.splice(evt.newIndex, 0, moved);
+          rrState.order = oldOrder;
+          const oldRot = rrState.rotations.slice();
+          const movedRot = oldRot.splice(evt.oldIndex, 1)[0];
+          oldRot.splice(evt.newIndex, 0, movedRot);
+          rrState.rotations = oldRot;
+          renderRotateGrid();
+          renderRotatePreview(); // Atualiza preview ao reordenar
+        }
+      });
     }
-  });
-}
 
-function getSelectedIdx() {
-  const btns = $$('#rotateGrid button');
-  for (let i = 0; i < btns.length; i++) {
-    if (btns[i].classList.contains('selected')) return i;
-  }
-  return null;
-}
-
-$$('#rotateGrid').forEach(grid => {
-  grid.addEventListener('click', e => {
-    if (e.target.tagName === 'BUTTON') {
-      $$('#rotateGrid button').forEach(b => b.classList.remove('selected'));
-      e.target.classList.add('selected');
+    function getSelectedIdx() {
+      const btns = $$('#rotateGrid button');
+      for (let i = 0; i < btns.length; i++) {
+        if (btns[i].classList.contains('selected')) return i;
+      }
+      return null;
     }
-  });
-});
 
-function rotateSelected(deg) {
-  const idx = getSelectedIdx();
-  if (idx === null) {
-    setStatus('rr','Selecione uma página.');
-    showToast('Selecione uma página para girar.', 'error');
-    return;
-  }
-  rrState.rotations[idx] = (rrState.rotations[idx] + deg) % 360;
-  $(`#rot${idx}`).textContent = `${rrState.rotations[idx]}°`;
-  renderRotatePreview(); // Atualiza preview ao girar
-}
+    $$('#rotateGrid').forEach(grid => {
+      grid.addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON') {
+          $$('#rotateGrid button').forEach(b => b.classList.remove('selected'));
+          e.target.classList.add('selected');
+        }
+      });
+    });
 
-$('#btnRotate90').addEventListener('click', () => rotateSelected(90));
-$('#btnRotate180').addEventListener('click', () => rotateSelected(180));
-$('#btnRotate270').addEventListener('click', () => rotateSelected(270));
-$('#btnResetRotation').addEventListener('click', () => {
-  const idx = getSelectedIdx();
-  if (idx === null) return;
-  rrState.rotations[idx] = 0;
-  $(`#rot${idx}`).textContent = '0°';
-  renderRotatePreview(); // Atualiza preview ao resetar
-});
-
-$('#btnExportRotate').addEventListener('click', async () => {
-  if (!rrState.doc) {
-    setStatus('rr','Carregue um PDF primeiro.');
-    showToast('Carregue um PDF primeiro.', 'error');
-    return;
-  }
-  $('#btnExportRotate').disabled = true;
-  withSpinner('rr','Exportando...');
-  try {
-    const out = await PDFDocument.create();
-    for (let i = 0; i < rrState.order.length; i++) {
-      const [page] = await out.copyPages(rrState.doc, [rrState.order[i]]);
-      page.setRotation(degrees(rrState.rotations[i]));
-      out.addPage(page);
+    function rotateSelected(deg) {
+      const idx = getSelectedIdx();
+      if (idx === null) {
+        setStatus('rr', 'Selecione uma página.');
+        showToast('Selecione uma página para girar.', 'error');
+        return;
+      }
+      rrState.rotations[idx] = (rrState.rotations[idx] + deg) % 360;
+      $(`#rot${idx}`).textContent = `${rrState.rotations[idx]}°`;
+      renderRotatePreview(); // Atualiza preview ao girar
     }
-    const bytes = await out.save();
-    downloadBlob(new Blob([bytes], {type: 'application/pdf'}), 'girado.pdf');
-    setStatus('rr','PDF exportado!');
-    showToast('PDF exportado!', 'success');
-  } catch (err) {
-    setStatus('rr','Erro ao exportar PDF: ' + (err.message || err));
-    showToast('Erro ao exportar PDF: ' + (err.message || err), 'error');
-  } finally {
-    $('#btnExportRotate').disabled = false;
-  }
-});
 
-// Pré-visualização das páginas rotacionadas
-async function renderRotatePreview() {
-  const grid = $('#rotatePreviewGrid');
-  grid.innerHTML = '';
-  if (!rotatePreviewPdf || !rrState.order.length) return;
-  for (let i = 0; i < rrState.order.length; i++) {
-    const pageNum = rrState.order[i] + 1;
-    const rotation = rrState.rotations[i];
-    const page = await rotatePreviewPdf.getPage(pageNum);
-    const vp = page.getViewport({scale: 0.25, rotation: rotation});
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.floor(vp.width);
-    canvas.height = Math.floor(vp.height);
-    const ctx = canvas.getContext('2d');
-    ctx.save();
-    // O pdf.js já aplica a rotação via viewport, não precisa girar manualmente
-    ctx.restore();
-    await page.render({canvasContext: ctx, viewport: vp}).promise;
-    const div = document.createElement('div');
-    div.className = 'thumb p-2 flex flex-col items-center';
-    div.innerHTML = `<div class="mb-2 text-sm">Página ${pageNum} (${rotation}°)</div>`;
-    div.appendChild(canvas);
-    grid.appendChild(div);
-  }
-}
+    $('#btnRotate90').addEventListener('click', () => rotateSelected(90));
+    $('#btnRotate180').addEventListener('click', () => rotateSelected(180));
+    $('#btnRotate270').addEventListener('click', () => rotateSelected(270));
+    $('#btnResetRotation').addEventListener('click', () => {
+      const idx = getSelectedIdx();
+      if (idx === null) return;
+      rrState.rotations[idx] = 0;
+      $(`#rot${idx}`).textContent = '0°';
+      renderRotatePreview(); // Atualiza preview ao resetar
+    });
+
+    $('#btnExportRotate').addEventListener('click', async () => {
+      if (!rrState.doc) {
+        setStatus('rr', 'Carregue um PDF primeiro.');
+        showToast('Carregue um PDF primeiro.', 'error');
+        return;
+      }
+      $('#btnExportRotate').disabled = true;
+      withSpinner('rr', 'Exportando...');
+      try {
+        const out = await PDFDocument.create();
+        for (let i = 0; i < rrState.order.length; i++) {
+          const [page] = await out.copyPages(rrState.doc, [rrState.order[i]]);
+          page.setRotation(degrees(rrState.rotations[i]));
+          out.addPage(page);
+        }
+        const bytes = await out.save();
+        downloadBlob(new Blob([bytes], { type: 'application/pdf' }), 'girado.pdf');
+        setStatus('rr', 'PDF exportado!');
+        showToast('PDF exportado!', 'success');
+      } catch (err) {
+        setStatus('rr', 'Erro ao exportar PDF: ' + (err.message || err));
+        showToast('Erro ao exportar PDF: ' + (err.message || err), 'error');
+      } finally {
+        $('#btnExportRotate').disabled = false;
+      }
+    });
+
+    // Pré-visualização das páginas rotacionadas
+    async function renderRotatePreview() {
+      const grid = $('#rotatePreviewGrid');
+      grid.innerHTML = '';
+      if (!rotatePreviewPdf || !rrState.order.length) return;
+      for (let i = 0; i < rrState.order.length; i++) {
+        const pageNum = rrState.order[i] + 1;
+        const rotation = rrState.rotations[i];
+        const page = await rotatePreviewPdf.getPage(pageNum);
+        const vp = page.getViewport({ scale: 0.25, rotation: rotation });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.floor(vp.width);
+        canvas.height = Math.floor(vp.height);
+        const ctx = canvas.getContext('2d');
+        ctx.save();
+        // O pdf.js já aplica a rotação via viewport, não precisa girar manualmente
+        ctx.restore();
+        await page.render({ canvasContext: ctx, viewport: vp }).promise;
+        const div = document.createElement('div');
+        div.className = 'thumb p-2 flex flex-col items-center';
+        div.innerHTML = `<div class="mb-2 text-sm">Página ${pageNum} (${rotation}°)</div>`;
+        div.appendChild(canvas);
+        grid.appendChild(div);
+      }
+    }
 
 
 
 
-// Anotar PDF (Adicionar texto simples)
-//-----------------------------------------
+    // Anotar PDF (Adicionar texto simples)
+    //-----------------------------------------
 
-$('#tab-annotate').innerHTML = `
+    $('#tab-annotate').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Anotar PDF</h2>
   <input type="file" id="annotateFile" accept="application/pdf" class="mb-4" />
   <input type="text" id="annotateText" placeholder="Texto para adicionar" class="mb-4" />
@@ -1096,226 +1149,227 @@ $('#tab-annotate').innerHTML = `
   </div>
 `;
 
-let annState = { doc: null, numPages: 0 };
-let previewPdf = null;
+    let annState = { doc: null, numPages: 0 };
+    let previewPdf = null;
 
-$('#annotateFile').addEventListener('change', async (e) => {
-  const f = e.target.files[0];
-  if (!f) return;
-  if (f.size > MAX_SIZE) {
-    setStatus('ann', 'Arquivo muito grande (máx. 20MB): ' + f.name);
-    showToast('Arquivo muito grande: ' + f.name, 'error');
-    e.target.value = '';
-    return;
-  }
-  try {
-    withSpinner('ann','Carregando PDF...');
-    const bytes = await readAsArrayBuffer(f);
-    annState.doc = await PDFDocument.load(bytes);
-    annState.numPages = annState.doc.getPageCount();
-    setStatus('ann', `PDF carregado — ${annState.numPages} página(s).`);
-    showToast(`PDF carregado com ${annState.numPages} páginas`, 'success');
-    $('#annotatePage').max = annState.numPages;
+    $('#annotateFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      if (f.size > MAX_SIZE) {
+        setStatus('ann', 'Arquivo muito grande (máx. 20MB): ' + f.name);
+        showToast('Arquivo muito grande: ' + f.name, 'error');
+        e.target.value = '';
+        return;
+      }
+      try {
+        withSpinner('ann', 'Carregando PDF...');
+        const bytes = await readAsArrayBuffer(f);
+        annState.doc = await PDFDocument.load(bytes);
+        annState.numPages = annState.doc.getPageCount();
+        setStatus('ann', `PDF carregado — ${annState.numPages} página(s).`);
+        showToast(`PDF carregado com ${annState.numPages} páginas`, 'success');
+        $('#annotatePage').max = annState.numPages;
 
-    // Carregar para preview
-    previewPdf = await pdfjsLib.getDocument({data: bytes}).promise;
-    renderAnnotatePreview();
-  } catch (err) {
-    setStatus('ann','Erro ao abrir PDF: ' + (err.message || err));
-    showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
-  }
-});
-// =============================================================================================
-$('#btnAnnotate').addEventListener('click', async () => {
-  if (!annState.doc) {
-    setStatus('ann','Carregue um PDF primeiro.');
-    showToast('Carregue um PDF primeiro.', 'error');
-    return;
-  }
-  $('#btnAnnotate').disabled = true;
-  const text = $('#annotateText').value;
-  const pageNum = parseInt($('#annotatePage').value, 10) - 1;
-  const colorHex = $('#annotateColor').value;
-  const x = parseInt($('#annotateX').value, 10);
-  const y = parseInt($('#annotateY').value, 10);
-  const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
-  const fontFamily = $('#annotateFontFamily').value;
-
-  if (!text || isNaN(pageNum) || pageNum < 0 || pageNum >= annState.numPages) {
-    setStatus('ann','Preencha o texto e página corretamente.');
-    showToast('Preencha o texto e página corretamente.', 'error');
-    $('#btnAnnotate').disabled = false;
-    return;
-  }
-  if (isNaN(x) || isNaN(y)) {
-    setStatus('ann','Preencha X e Y corretamente.');
-    showToast('Preencha X e Y corretamente.', 'error');
-    $('#btnAnnotate').disabled = false;
-    return;
-  }
-  withSpinner('ann','Adicionando anotação...');
-  try {
-    let font;
-    if (fontFamily === 'Helvetica') font = await annState.doc.embedFont(StandardFonts.Helvetica);
-    else if (fontFamily === 'TimesRoman') font = await annState.doc.embedFont(StandardFonts.TimesRoman);
-    else if (fontFamily === 'Courier') font = await annState.doc.embedFont(StandardFonts.Courier);
-    else font = await annState.doc.embedFont(StandardFonts.Helvetica);
-
-    const page = annState.doc.getPage(pageNum);
-
-    // Converter cor hex para rgb
-    function hexToRgb(hex) {
-      const v = hex.replace('#','');
-      return {
-        r: parseInt(v.substring(0,2),16)/255,
-        g: parseInt(v.substring(2,4),16)/255,
-        b: parseInt(v.substring(4,6),16)/255
-      };
-    }
-    const rgbColor = hexToRgb(colorHex);
-
-    page.drawText(text, {
-      x: x,
-      y: y,
-      size: fontSize,
-      font,
-      color: rgb(rgbColor.r, rgbColor.g, rgbColor.b)
+        // Carregar para preview
+        previewPdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+        renderAnnotatePreview();
+      } catch (err) {
+        setStatus('ann', 'Erro ao abrir PDF: ' + (err.message || err));
+        showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
+      }
     });
-    const bytes = await annState.doc.save();
-    downloadBlob(new Blob([bytes], {type: 'application/pdf'}), 'anotado.pdf');
-    setStatus('ann','Texto adicionado!');
-    showToast('Texto adicionado!', 'success');
-  } catch (err) {
-    setStatus('ann','Erro ao anotar PDF: ' + (err.message || err));
-    showToast('Erro ao anotar PDF: ' + (err.message || err), 'error');
-  } finally {
-    $('#btnAnnotate').disabled = false;
-  }
-});
-// ==============================================================================================
-function renderAnnotatePreview() {
-  if (!previewPdf) return;
-  const pageNum = parseInt($('#annotatePage').value, 10) || 1;
-  previewPdf.getPage(pageNum).then(page => {
-    const vp = page.getViewport({scale: 1});
-    const previewCanvas = $('#annotatePreview');
-    previewCanvas.width = vp.width;
-    previewCanvas.height = vp.height;
-    const ctx = previewCanvas.getContext('2d');
-    ctx.clearRect(0, 0, vp.width, vp.height);
-    page.render({canvasContext: ctx, viewport: vp}).promise.then(() => {
-      // Desenhar texto sobre o canvas
+    // =============================================================================================
+    $('#btnAnnotate').addEventListener('click', async () => {
+      if (!annState.doc) {
+        setStatus('ann', 'Carregue um PDF primeiro.');
+        showToast('Carregue um PDF primeiro.', 'error');
+        return;
+      }
+      $('#btnAnnotate').disabled = true;
       const text = $('#annotateText').value;
-      const x = parseInt($('#annotateX').value, 10) || 0;
-      const y = parseInt($('#annotateY').value, 10) || 0;
-      const color = $('#annotateColor').value || '#1e40af';
+      const pageNum = parseInt($('#annotatePage').value, 10) - 1;
+      const colorHex = $('#annotateColor').value;
+      const x = parseInt($('#annotateX').value, 10);
+      const y = parseInt($('#annotateY').value, 10);
       const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
       const fontFamily = $('#annotateFontFamily').value;
-      let fontCss = 'bold';
-      if (fontFamily === 'Helvetica') fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
-      else if (fontFamily === 'TimesRoman') fontCss += ` ${fontSize}px Times, Times New Roman, serif`;
-      else if (fontFamily === 'Courier') fontCss += ` ${fontSize}px Courier, monospace`;
-      else fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
-      ctx.font = fontCss;
-      ctx.fillStyle = color;
-      ctx.fillText(text, x, vp.height - y);
+
+      if (!text || isNaN(pageNum) || pageNum < 0 || pageNum >= annState.numPages) {
+        setStatus('ann', 'Preencha o texto e página corretamente.');
+        showToast('Preencha o texto e página corretamente.', 'error');
+        $('#btnAnnotate').disabled = false;
+        return;
+      }
+      if (isNaN(x) || isNaN(y)) {
+        setStatus('ann', 'Preencha X e Y corretamente.');
+        showToast('Preencha X e Y corretamente.', 'error');
+        $('#btnAnnotate').disabled = false;
+        return;
+      }
+      withSpinner('ann', 'Adicionando anotação...');
+      try {
+        let font;
+        if (fontFamily === 'Helvetica') font = await annState.doc.embedFont(StandardFonts.Helvetica);
+        else if (fontFamily === 'TimesRoman') font = await annState.doc.embedFont(StandardFonts.TimesRoman);
+        else if (fontFamily === 'Courier') font = await annState.doc.embedFont(StandardFonts.Courier);
+        else font = await annState.doc.embedFont(StandardFonts.Helvetica);
+
+        const page = annState.doc.getPage(pageNum);
+
+        // Converter cor hex para rgb
+        function hexToRgb(hex) {
+          const v = hex.replace('#', '');
+          return {
+            r: parseInt(v.substring(0, 2), 16) / 255,
+            g: parseInt(v.substring(2, 4), 16) / 255,
+            b: parseInt(v.substring(4, 6), 16) / 255
+          };
+        }
+        const rgbColor = hexToRgb(colorHex);
+
+        page.drawText(text, {
+          x: x,
+          y: y,
+          size: fontSize,
+          font,
+          color: rgb(rgbColor.r, rgbColor.g, rgbColor.b)
+        });
+        const bytes = await annState.doc.save();
+        downloadBlob(new Blob([bytes], { type: 'application/pdf' }), 'anotado.pdf');
+        setStatus('ann', 'Texto adicionado!');
+        showToast('Texto adicionado!', 'success');
+      } catch (err) {
+        setStatus('ann', 'Erro ao anotar PDF: ' + (err.message || err));
+        showToast('Erro ao anotar PDF: ' + (err.message || err), 'error');
+      } finally {
+        $('#btnAnnotate').disabled = false;
+      }
     });
-  });
-}
+    // ==============================================================================================
+    function renderAnnotatePreview() {
+      if (!previewPdf) return;
+      const pageNum = parseInt($('#annotatePage').value, 10) || 1;
+      previewPdf.getPage(pageNum).then(page => {
+        const vp = page.getViewport({ scale: 1 });
+        const previewCanvas = $('#annotatePreview');
+        previewCanvas.width = vp.width;
+        previewCanvas.height = vp.height;
+        const ctx = previewCanvas.getContext('2d');
+        ctx.clearRect(0, 0, vp.width, vp.height);
+        page.render({ canvasContext: ctx, viewport: vp }).promise.then(() => {
+          // Desenhar texto sobre o canvas
+          const text = $('#annotateText').value;
+          const x = parseInt($('#annotateX').value, 10) || 0;
+          const y = parseInt($('#annotateY').value, 10) || 0;
+          const color = $('#annotateColor').value || '#1e40af';
+          const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
+          const fontFamily = $('#annotateFontFamily').value;
+          let fontCss = 'bold';
+          if (fontFamily === 'Helvetica') fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
+          else if (fontFamily === 'TimesRoman') fontCss += ` ${fontSize}px Times, Times New Roman, serif`;
+          else if (fontFamily === 'Courier') fontCss += ` ${fontSize}px Courier, monospace`;
+          else fontCss += ` ${fontSize}px Arial, Helvetica, sans-serif`;
+          ctx.font = fontCss;
+          ctx.fillStyle = color;
+          ctx.fillText(text, x, vp.height - y);
+        });
+      });
+    }
 
-// Atualize preview ao mudar campos
-['annotateText','annotatePage','annotateColor','annotateX','annotateY','annotateFontSize','annotateFontFamily'].forEach(id => {
-  $(`#${id}`).addEventListener('input', renderAnnotatePreview);
-});
+    // Atualize preview ao mudar campos
+    ['annotateText', 'annotatePage', 'annotateColor', 'annotateX', 'annotateY', 'annotateFontSize', 'annotateFontFamily'].forEach(id => {
+      $(`#${id}`).addEventListener('input', renderAnnotatePreview);
+    });
 
-// Botões de mover texto
-const step = 10; // pixels por clique
+    // Botões de mover texto
+    const step = 10; // pixels por clique
 
-$('#moveLeft').addEventListener('click', () => {
-  const x = $('#annotateX');
-  x.value = Math.max(0, parseInt(x.value, 10) - step);
-  renderAnnotatePreview();
-});
-$('#moveRight').addEventListener('click', () => {
-  const x = $('#annotateX');
-  x.value = parseInt(x.value, 10) + step;
-  renderAnnotatePreview();
-});
-$('#moveUp').addEventListener('click', () => {
-  const y = $('#annotateY');
-  y.value = parseInt(y.value, 10) + step;
-  renderAnnotatePreview();
-});
-$('#moveDown').addEventListener('click', () => {
-  const y = $('#annotateY');
-  y.value = Math.max(0, parseInt(y.value, 10) - step);
-  renderAnnotatePreview();
-});
-
-
+    $('#moveLeft').addEventListener('click', () => {
+      const x = $('#annotateX');
+      x.value = Math.max(0, parseInt(x.value, 10) - step);
+      renderAnnotatePreview();
+    });
+    $('#moveRight').addEventListener('click', () => {
+      const x = $('#annotateX');
+      x.value = parseInt(x.value, 10) + step;
+      renderAnnotatePreview();
+    });
+    $('#moveUp').addEventListener('click', () => {
+      const y = $('#annotateY');
+      y.value = parseInt(y.value, 10) + step;
+      renderAnnotatePreview();
+    });
+    $('#moveDown').addEventListener('click', () => {
+      const y = $('#annotateY');
+      y.value = Math.max(0, parseInt(y.value, 10) - step);
+      renderAnnotatePreview();
+    });
 
 
 
-// Compactar PDF
-// ------------------------------------------------------
-// ...substitua o bloco COMPRESS pelo abaixo...
 
-$('#tab-compress').innerHTML = `
+
+    // Compactar PDF
+    // ------------------------------------------------------
+    // ...substitua o bloco COMPRESS pelo abaixo...
+
+    $('#tab-compress').innerHTML = `
   <h2 class="text-xl font-semibold mb-4">Compactar PDF</h2>
   <input type="file" id="compressFile" accept="application/pdf" class="mb-4" />
   <button id="btnCompress" class="btn-primary">Compactar e baixar</button>
   <div id="cmpStatus" class="text-sm text-gray-500 mt-2"></div>
 `;
 
-let cmpState = { doc: null };
+    let cmpState = { doc: null };
 
-$('#compressFile').addEventListener('change', async (e) => {
-  const f = e.target.files[0];
-  if (!f) return;
-  if (f.size > MAX_SIZE) {
-    setStatus('cmp', 'Arquivo muito grande (máx. 20MB): ' + f.name);
-    showToast('Arquivo muito grande: ' + f.name, 'error');
-    e.target.value = '';
-    return;
-  }
-  try {
-    withSpinner('cmp','Carregando PDF...');
-    const bytes = await readAsArrayBuffer(f);
-    cmpState.doc = await PDFDocument.load(bytes);
-    setStatus('cmp', `PDF carregado — ${cmpState.doc.getPageCount()} página(s).`);
-    showToast(`PDF carregado com ${cmpState.doc.getPageCount()} páginas`, 'success');
-  } catch (err) {
-    setStatus('cmp','Erro ao abrir PDF: ' + (err.message || err));
-    showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
-  }
-});
+    $('#compressFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      if (f.size > MAX_SIZE) {
+        setStatus('cmp', 'Arquivo muito grande (máx. 20MB): ' + f.name);
+        showToast('Arquivo muito grande: ' + f.name, 'error');
+        e.target.value = '';
+        return;
+      }
+      try {
+        withSpinner('cmp', 'Carregando PDF...');
+        const bytes = await readAsArrayBuffer(f);
+        cmpState.doc = await PDFDocument.load(bytes);
+        setStatus('cmp', `PDF carregado — ${cmpState.doc.getPageCount()} página(s).`);
+        showToast(`PDF carregado com ${cmpState.doc.getPageCount()} páginas`, 'success');
+      } catch (err) {
+        setStatus('cmp', 'Erro ao abrir PDF: ' + (err.message || err));
+        showToast('Erro ao carregar o PDF: ' + (err.message || err), 'error');
+      }
+    });
 
-$('#btnCompress').addEventListener('click', async () => {
-  if (!cmpState.doc) {
-    setStatus('cmp','Carregue um PDF primeiro.');
-    showToast('Carregue um PDF primeiro.', 'error');
-    return;
-  }
-  $('#btnCompress').disabled = true;
-  withSpinner('cmp','Compactando...');
-  try {
-    cmpState.doc.setTitle('');
-    cmpState.doc.setAuthor('');
-    cmpState.doc.setSubject('');
-    cmpState.doc.setKeywords([]);
-    cmpState.doc.setProducer('');
-    cmpState.doc.setCreator('');
-    const bytes = await cmpState.doc.save({ useObjectStreams: true, addDefaultPage: false });
-    downloadBlob(new Blob([bytes], {type: 'application/pdf'}), 'compactado.pdf');
-    setStatus('cmp','PDF compactado!');
-    showToast('PDF compactado!', 'success');
-  } catch (err) {
-    setStatus('cmp','Erro ao compactar PDF: ' + (err.message || err));
-    showToast('Erro ao compactar PDF: ' + (err.message || err), 'error');
-  } finally {
-    $('#btnCompress').disabled = false;
-  }
-});
+    $('#btnCompress').addEventListener('click', async () => {
+      if (!cmpState.doc) {
+        setStatus('cmp', 'Carregue um PDF primeiro.');
+        showToast('Carregue um PDF primeiro.', 'error');
+        return;
+      }
+      $('#btnCompress').disabled = true;
+      withSpinner('cmp', 'Compactando...');
+      try {
+        cmpState.doc.setTitle('');
+        cmpState.doc.setAuthor('');
+        cmpState.doc.setSubject('');
+        cmpState.doc.setKeywords([]);
+        cmpState.doc.setProducer('');
+        cmpState.doc.setCreator('');
+        const bytes = await cmpState.doc.save({ useObjectStreams: true, addDefaultPage: false });
+        downloadBlob(new Blob([bytes], { type: 'application/pdf' }), 'compactado.pdf');
+        setStatus('cmp', 'PDF compactado!');
+        showToast('PDF compactado!', 'success');
+      } catch (err) {
+        setStatus('cmp', 'Erro ao compactar PDF: ' + (err.message || err));
+        showToast('Erro ao compactar PDF: ' + (err.message || err), 'error');
+      } finally {
+        $('#btnCompress').disabled = false;
+      }
+    });
   </script>
 </body>
+
 </html>
