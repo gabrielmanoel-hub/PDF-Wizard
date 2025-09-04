@@ -1274,12 +1274,121 @@
           ctx.fillText(text, x, vp.height - y);
         });
       });
+
+      
+            
     }
 
     // Atualize preview ao mudar campos
     ['annotateText', 'annotatePage', 'annotateColor', 'annotateX', 'annotateY', 'annotateFontSize', 'annotateFontFamily'].forEach(id => {
       $(`#${id}`).addEventListener('input', renderAnnotatePreview);
     });
+
+
+    //============================ ARRASTAR TEXTO NO CANVAS ======================================
+
+      let isDragging = false;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+      let dragListenerAdded = false;
+
+      function isOverText(mx, my, text, x, y, fontSize, ctx) {
+        ctx.font = ctx.font;
+        const width = ctx.measureText(text).width;
+        const height = fontSize;
+        return mx >= x && mx <= x + width && my >= y - height && my <= y;
+      }
+
+      function addDragListeners() {
+          if (dragListenerAdded) return; // evita duplicidade
+          dragListenerAdded = true;
+          const previewCanvas = document.getElementById('annotatePreview');
+          if (!previewCanvas) return;
+
+          previewCanvas.addEventListener('mousedown', function (e) {
+            const rect = previewCanvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            const text = $('#annotateText').value;
+            const x = parseInt($('#annotateX').value, 10) || 0;
+            const y = parseInt($('#annotateY').value, 10) || 0;
+            const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
+            const ctx = previewCanvas.getContext('2d');
+            // O texto é desenhado em (x, canvas.height - y)
+            const textY = previewCanvas.height - y;
+            if (isOverText(mx, my, text, x, textY, fontSize, ctx)) {
+              isDragging = true;
+              dragOffsetX = mx - x;
+              dragOffsetY = my - textY;
+            }
+          });
+
+          previewCanvas.addEventListener('mousemove', function (e) {
+            if (!isDragging) return;
+            const rect = previewCanvas.getBoundingClientRect();
+            const mx = e.clientX - rect.left;
+            const my = e.clientY - rect.top;
+            // Calcule x normalmente
+            $('#annotateX').value = Math.max(0, Math.round(mx - dragOffsetX));
+            // Calcule y invertendo a altura do canvas
+            $('#annotateY').value = Math.max(0, Math.round(previewCanvas.height - (my - dragOffsetY)));
+            renderAnnotatePreview();
+          });
+
+          previewCanvas.addEventListener('mouseup', function () {
+            isDragging = false;
+          });
+
+          previewCanvas.addEventListener('mouseleave', function () {
+            isDragging = false;
+          });
+
+          // Mobile touch
+          previewCanvas.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            const rect = previewCanvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const mx = touch.clientX - rect.left;
+            const my = touch.clientY - rect.top;
+            const text = $('#annotateText').value;
+            const x = parseInt($('#annotateX').value, 10) || 0;
+            const y = parseInt($('#annotateY').value, 10) || 0;
+            const fontSize = parseInt($('#annotateFontSize').value, 10) || 18;
+            const ctx = previewCanvas.getContext('2d');
+            const textY = previewCanvas.height - y;
+            if (isOverText(mx, my, text, x, textY, fontSize, ctx)) {
+              isDragging = true;
+              dragOffsetX = mx - x;
+              dragOffsetY = my - textY;
+            }
+          }, { passive: false });
+
+          previewCanvas.addEventListener('touchmove', function (e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const rect = previewCanvas.getBoundingClientRect();
+            const touch = e.touches[0];
+            const mx = touch.clientX - rect.left;
+            const my = touch.clientY - rect.top;
+            $('#annotateX').value = Math.max(0, Math.round(mx - dragOffsetX));
+            $('#annotateY').value = Math.max(0, Math.round(previewCanvas.height - (my - dragOffsetY)));
+            renderAnnotatePreview();
+          }, { passive: false });
+
+          previewCanvas.addEventListener('touchend', function () {
+            isDragging = false;
+          });
+        }
+
+      // Chame addDragListeners após carregar o PDF e renderizar o canvas
+      $('#annotateFile').addEventListener('change', async (e) => {
+        // ...seu código de carregamento...
+        renderAnnotatePreview();
+        addDragListeners();
+      });
+
+
+    //========================= FIM ============================================
 
     // Botões de mover texto
     const step = 10; // pixels por clique
